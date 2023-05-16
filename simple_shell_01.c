@@ -17,6 +17,11 @@ int main()
 	char *cmd, command[50], *parameters[10];
 	char *envp[] = {(char *)"PATH=/bin", 0};
 
+	if (!isatty(STDIN_FILENO))
+	{
+		execle("/bin/ls", "/bin/ls", NULL, envp);
+		return (0);
+	}
 	while (1)
 	{
 		display_prompt();
