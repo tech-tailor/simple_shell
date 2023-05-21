@@ -14,7 +14,7 @@ void display_prompt();
  */
 int main()
 {
-	char *cmd, command[50], *parameters[10];
+	char cmd[50], command[50], *parameters[10];
 	char *envp[] = {(char *)"PATH=/bin", 0};
 
 	while (1)
@@ -26,7 +26,8 @@ int main()
 			wait(NULL);
 		else
 		{
-			cmd = command;
+			strcpy(cmd, "/bin/");
+			strcat(cmd, command);
 			execve(cmd, parameters, envp);
 			perror("./shell");
 		}
@@ -56,8 +57,9 @@ void display_prompt()
  */
 void read_from_terminal(char *cmd, char **par)
 {
-	char *line = NULL, *arr[10], *token;
-	size_t i = 0, j = 0, buffsize = 0;
+	char *line = NULL,  *token;
+	int i = 0;
+	size_t buffsize = 0;
 	ssize_t len = -1;
 
 	while (len == -1)
@@ -70,16 +72,14 @@ void read_from_terminal(char *cmd, char **par)
 
 	while (token != NULL)
 	{
-		arr[i++] = token;
+		if (i == 0)
+		{
+			strcpy(cmd, token);
+		}
+		par[i] = token;
+		i++;
 		token = strtok(NULL, " \n");
-	}
-	if (i > 1)
-	{
-		strcpy(cmd, "yes");
-		return;
-	}
-	strcpy(cmd, arr[0]);
 
-	par[j] = arr[j];
+	}
 	par[i] = NULL;
 }
