@@ -12,10 +12,13 @@ void display_prompt();
  * @argv: - arguments
  * Return: 0 Always
  */
-int main()
+int main(int argc, char **argv)
 {
 	char *cmd, command[50], *parameters[10];
 	char *envp[] = {(char *)"PATH=/bin", 0};
+
+	if (argc < 0)
+		return (1);
 
 	if (!isatty(STDIN_FILENO))
 	{
@@ -33,7 +36,7 @@ int main()
 		{
 			cmd = command;
 			execve(cmd, parameters, envp);
-			perror("./shell");
+			perror(argv[0]);
 		}
 	}
 	return (1);
