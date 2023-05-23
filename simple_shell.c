@@ -4,7 +4,7 @@
  * main - The entry function of our program
  * @argc: number of arguments
  * @argv: arguments
- * Return: Nothing
+ * Return: void
  */
 int main(int argc, char **argv, char **envp)
 {
