@@ -1,19 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "simple_shell.h"
 
-extern char** environ;
-void display_prompt();
-void read_data(char*, char**);
 /**
  * main - The entry function of our program
  * @argc: number of arguments
  * @argv: arguments
  * Return: Nothing
  */
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	char cmd[100], command[50], *parameters[10];
 
@@ -30,7 +23,7 @@ int main(int argc, char **argv)
 		{
 			strcpy(cmd, "/bin/");
 			strcat(cmd, command);
-			execve(cmd, parameters, environ);
+			execve(cmd, parameters, envp);
 			if (strcmp(command, "exit")== 0)
 				break;
 			perror(argv[0]);

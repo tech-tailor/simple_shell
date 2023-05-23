@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
- void read_from_terminal(char *comd, char **par);
+ void read_data(char *comd, char **par);
  void display_prompt();
  int main(int argc, char **argv, char **envp);
 
