@@ -15,8 +15,8 @@ int main(int argc, char **argv, char **envp)
 
 	while(1)
 	{
-		display_prompt();
-		read_data(command, parameters);
+		display_promptt();
+		read_data1(command, parameters);
 		if (fork() != 0)
 			wait(NULL);
 		else
@@ -83,7 +83,9 @@ void read_data(char *cmd, char **par)
 	}
 	strcpy(cmd, arr[0]);
 	for (;j < i; j++)
+	{
 		par[j] = arr[j];
+	}
 	par[i] = NULL;
 	free(line);
 }
