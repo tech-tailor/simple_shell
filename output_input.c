@@ -23,7 +23,7 @@ void display_prompt(void)
  */
 void read_data(char *cmd, char **par)
 {
-	char *line = NULL, *arr[10], *token, test[] = "/bin/ls ";
+	char *line = NULL, *arr[10], *token;
 	size_t i = 0, j = 0, buffsize = 0;
 	ssize_t len = -1;
 
