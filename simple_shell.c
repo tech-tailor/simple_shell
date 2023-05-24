@@ -23,6 +23,12 @@ int main(int argc, char **argv, char **envp)
 		else
 		{
 			strcpy(cmd, "/bin/");
+			printf("value is %s \n", command);
+			if (command == NULL)
+			{
+				printf("Nill \n");
+				continue;
+			}
 			strcat(cmd, command);
 			execve(cmd, parameters, envp);
 			if (strcmp(command, "exit") == 0)
