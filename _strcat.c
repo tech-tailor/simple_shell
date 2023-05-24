@@ -1,36 +1,31 @@
-#include <stdio.h>
-#include <string.h>
+#include "simple_shell.h"
+
+/**
+ * _strcat- concatenate two string
+ * @destination: destination string
+ * @source: source string
+ *
+ * Return: retuns the destination string
+ *
+ */
 
 char *_strcat(char *destination, const char *source)
 {
 
-	int i, len = 0;
-	
-	for (len = 0; destination[len] != '\0'; len++)
+	int i = 0, len = 0;
 
-	while (source[i] !='\0')
+	while (destination[len] != '\0')
+	{
+		len++;
+	}
+	while (source[i] != '\0')
 	{
 		destination[len + i] = source[i];
 		i++;
 
 	}
 	destination[len + i] = '\0';
-	
+
 	return (destination);
 
 }
-
-
-int main()
-{
-
-	char s1[] = "Akia";
-	char d1[] = "niti";
-	_strcat(d1, s1);
-	printf("%s\n", d1);
-	printf("%s\n", d1);
-	return (0);
-
-}
-
-

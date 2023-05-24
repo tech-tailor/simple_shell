@@ -40,7 +40,7 @@ void read_data(char *cmd, char **par)
 		arr[i++] = token;
 		token = strtok(NULL, " \n");
 	}
-	strcpy(cmd, arr[0]);
+	_strcpy(cmd, arr[0]);
 
 	for (j = 0; j < i; j++)
 		par[j] = arr[j];
