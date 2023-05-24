@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+<<<<<<< HEAD
  void read_data(char *comd, char **par);
  void read_data1(char *comd, char **par);
  void display_prompt();
@@ -15,6 +16,12 @@
  ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
  char *_strcpy(char *destination, const char *source);
 
+=======
+void read_data(char *comd, char **par);
+void display_prompt(void);
+int main(int argc, char **argv, char **envp);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+>>>>>>> 7a5829bbd9d28de9cbbe717fff950cddeb9c4fe0
 
 
 
