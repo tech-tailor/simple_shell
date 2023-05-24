@@ -22,20 +22,14 @@ int main(int argc, char **argv, char **envp)
 			wait(NULL);
 		else
 		{
-			strcpy(cmd, "/bin/");
-			printf("value is %s \n", command);
-			if (command == NULL)
-			{
-				printf("Nill \n");
-				continue;
-			}
-			strcat(cmd, command);
+			_strcpy(cmd, "/bin/");
+			_strcat(cmd, command);
 			execve(cmd, parameters, envp);
-			if (strcmp(command, "exit") == 0)
+			if (_strcmp(command, "exit") == 0)
 				break;
 			perror(argv[0]);
 		}
-		if (strcmp(command, "exit") == 0)
+		if (_strcmp(command, "exit") == 0)
 			break;
 	}
 	return (1);

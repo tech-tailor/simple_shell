@@ -41,10 +41,7 @@ void read_data(char *cmd, char **par)
 		arr[i++] = token;
 		token = strtok(NULL, " \n");
 	}
-	if (arr[0] == test)
-		strcpy(cmd, "ls");
-	else
-		strcpy(cmd, arr[0]);
+	_strcpy(cmd, arr[0]);
 
 	for (j = 0; j < i; j++)
 	{
