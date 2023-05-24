@@ -12,7 +12,7 @@ int main(int argc, char **argv, char **envp)
 	char cmd[100], command[50], *parameters[10];
 
 	if (argc < 0)
-		return (0);
+		return (1);
 
 	while (1)
 	{
@@ -22,7 +22,8 @@ int main(int argc, char **argv, char **envp)
 			wait(NULL);
 		else
 		{
-			_strcpy(cmd, "/bin/");
+			if (_strcmp(command, "/bin/ls") != 0)
+				_strcpy(cmd, "/bin/");
 			_strcat(cmd, command);
 			execve(cmd, parameters, envp);
 			if (_strcmp(command, "exit") == 0)

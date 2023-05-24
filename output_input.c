@@ -48,5 +48,5 @@ void read_data(char *cmd, char **par)
 		par[j] = arr[j];
 	}
 	par[i] = NULL;
-	free (line);
+	free(line);
 }
