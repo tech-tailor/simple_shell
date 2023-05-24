@@ -13,6 +13,8 @@
  void display_promptt();
  int main(int argc, char **argv, char **envp);
  ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+ char *_strcpy(char *destination, const char *source);
+
 
 
 
