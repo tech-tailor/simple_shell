@@ -27,7 +27,7 @@ void read_data(char *cmd, char **par)
 	size_t i = 0, j = 0, buffsize = 0;
 	ssize_t len = -1;
 
-	len = getline(&line, &buffsize, stdin);
+	len = _getline(&line, &buffsize, stdin);
 	if (len == 0 || len == -1)
 	{
 		free(line);
