@@ -37,5 +37,5 @@ int main(int argc, char **argv, char **envp)
 		if (_strcmp(command, "exit") == 0)
 			break;
 	}
-	return (1);
+	return (0);
 }
