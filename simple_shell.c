@@ -10,10 +10,12 @@
 int main(int argc, char **argv, char **envp)
 {
 	char cmd[100], command[50], *parameters[10];
+	int _isatty = 0;
 
 	if (argc < 0)
 		return (1);
-
+	if (!isatty(STDIN_FILENO))
+		_isatty = 1;
 	while (1)
 	{
 		display_prompt();
@@ -30,6 +32,8 @@ int main(int argc, char **argv, char **envp)
 				break;
 			perror(argv[0]);
 		}
+		if (_isatty)
+			break;
 		if (_strcmp(command, "exit") == 0)
 			break;
 	}
