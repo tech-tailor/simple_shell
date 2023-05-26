@@ -39,7 +39,7 @@ void print_error(char *name, int cicl, char **commands)
 {
 	char c;
 
-	c = cicles + '0';
+	c = cicl + '0';
 	write(STDOUT_FILENO, name, _strlen(name));
 	write(STDOUT_FILENO, ": ", 2);
 	write(STDOUT_FILENO, &c, 1);

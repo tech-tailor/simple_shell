@@ -75,7 +75,7 @@ int main(int ac, char **av, char **envp)
 			else if (_strcmp(command[0], "cd") != 0)
 				change_dir(command[1]);
 			else
-				_fork(command, av[0], envp, cicles);
+				create_fork(command, av[0], envp, cicles);
 		}
 		fflush(stdin);
 		buffer = NULL, buf_size = 0;
