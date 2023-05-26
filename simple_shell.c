@@ -1,41 +1,48 @@
 #include "simple_shell.h"
 
 /**
- * main - The entry function of our program
- * @argc: number of arguments
- * @envp: viarable to the outside env
- * @argv: arguments
- * Return: void
- */
-int main(int argc, char **argv, char **envp)
-{
-	char cmd[100], command[50], *parameters[10];
-	int _isatty = 0;
+* main - A function that runs our shell.
+* @ac: The number of inputed arguments.
+* @av: The pointer to array of inputed arguments.
+* @envp: The pointer to array of enviromental variables.
+* Return: Always 0.
+*/
 
-	if (argc < 0)
-		return (1);
-	if (!isatty(STDIN_FILENO))
-		_isatty = 1;
-	while (1)
-	{
-		display_prompt();
-		read_data(command, parameters);
-		if (fork() != 0)
-			wait(NULL);
-		else
-		{
-			if (_strcmp(command, "/bin/ls") != 0)
-				_strcpy(cmd, "/bin/");
-			_strcat(cmd, command);
-			execve(cmd, parameters, envp);
-			if (_strcmp(command, "exit") == 0)
-				break;
-			perror(argv[0]);
-		}
-		if (_isatty)
-			break;
-		if (_strcmp(command, "exit") == 0)
-			break;
-	}
-	return (0);
+int main(int ac, char **av, char **envp)
+{
+char *buffer = NULL, **command = NULL;
+size_t buf_size = 0;
+ssize_t chars_read = 0;
+int cicles = 0;
+(void)ac;
+
+while (1)
+{
+cicles++;
+prompt();
+signal(SIGINT, handle);
+chars_read = getline(&buffer, &buf_size, stdin);
+if (chars_read == EOF)
+_EOF(buffer);
+else if (*buffer == '\n')
+free(buffer);
+else
+{
+buffer[_strlen(buffer) - 1] = '\0';
+command = tokening(buffer, " \0");
+free(buffer);
+if (_strcmp(command[0], "exit") != 0)
+shell_exit(command);
+else if (_strcmp(command[0], "cd") != 0)
+change_dir(command[1]);
+else
+create_child(command, av[0], envp, cicles);
 }
+fflush(stdin);
+buffer = NULL, buf_size = 0;
+}
+if (chars_read == -1)
+return (EXIT_FAILURE);
+return (EXIT_SUCCESS);
+}
+
