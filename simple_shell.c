@@ -1,41 +1,41 @@
 #include "simple_shell.h"
 
 /**
- * main - The entry function of our program
- * @argc: number of arguments
- * @envp: viarable to the outside env
- * @argv: arguments
- * Return: void
- */
-int main(int argc, char **argv, char **envp)
+  * change_dir - function that works cd
+  * @path: path to then directory
+  * Return: 0 on success, -1 on failure.
+  */
+int change_dir(const char *path)
 {
-	char cmd[100], command[50], *parameters[10];
-	int _isatty = 0;
+	char *buf = NULL;
+	size_t size = 1024;
 
-	if (argc < 0)
-		return (1);
-	if (!isatty(STDIN_FILENO))
-		_isatty = 1;
-	while (1)
+	if (path == NULL)
+		path = getcwd(buf, size);
+	if (chdir(path) == -1)
 	{
-		display_prompt();
-		read_data(command, parameters);
-		if (fork() != 0)
-			wait(NULL);
-		else
-		{
-			if (_strcmp(command, "/bin/ls") != 0)
-				_strcpy(cmd, "/bin/");
-			_strcat(cmd, command);
-			execve(cmd, parameters, envp);
-			if (_strcmp(command, "exit") == 0)
-				break;
-			perror(argv[0]);
-		}
-		if (_isatty)
-			break;
-		if (_strcmp(command, "exit") == 0)
-			break;
+		perror(path);
+		return (98);
 	}
-	return (0);
+	return (1);
+}
+
+/**
+ * shell_exit - exits the shell function.
+ * @cmd: The pointer to parameters.
+ * Return: Nothing.
+ */
+void shell_exit(char **cmd)
+{
+	int test = 0;
+
+	if (cmd[1] == NULL)
+	{
+		free_par(cmd);
+		exit(EXIT_SUCCESS);
+	}
+
+	test = _atoi(cmd[1]);
+	free_par(cmd);
+	exit(test);
 }

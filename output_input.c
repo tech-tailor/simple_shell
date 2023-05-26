@@ -6,47 +6,55 @@
  */
 void display_prompt(void)
 {
-	static unsigned int is_first_time = 1;
-
-	while (is_first_time)
-	{
-		is_first_time = 0;
-	}
-	write(STDOUT_FILENO, "$ ", 2);
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "$ ", 2);
 }
 
 /**
- * read_data - the function that get command from terminal
- * @cmd: The first argument
- * @par: the pointer to the parameter vector
+ * _EOF - A function that verigy if we reach at the end
+ * @buffer: The pointer to the input string
  * Return: Nothing
  */
-void read_data(char *cmd, char **par)
+void _EOF(char *buffer)
 {
-	char *line = NULL, *arr[10], *token;
-	size_t i = 0, j = 0, buffsize = 0;
-	ssize_t len = -1;
-
-	len = getline(&line, &buffsize, stdin);
-	if (len == 0 || len == -1)
+	if (buffer)
 	{
-		free(line);
-		return;
+		free(buffer);
+		buffer = NULL;
 	}
-	fflush(stdin);
-	token = strtok(line, " \n");
 
-	while (token != NULL)
-	{
-		arr[i++] = token;
-		token = strtok(NULL, " \n");
-	}
-	_strcpy(cmd, arr[0]);
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "\n", 1);
+	free(buffer);
+	exit(EXIT_SUCCESS);
+}
+/**
+ * print_error - A function that prints error msg
+ * @name: The name of the shell
+ * @cicl: times does  the chell executed
+ * @commands: The pointer to tokeniz command
+ * Return: Nothing
+ */
+void print_error(char *name, int cicl, char **commands)
+{
+	char c;
 
-	for (j = 0; j < i; j++)
-	{
-		par[j] = arr[j];
-	}
-	par[i] = NULL;
-	free(line);
+	c = cicles + '0';
+	write(STDOUT_FILENO, name, _strlen(name));
+	write(STDOUT_FILENO, ": ", 2);
+	write(STDOUT_FILENO, &c, 1);
+	write(STDOUT_FILENO, ": ", 2);
+	write(STDOUT_FILENO, commands[0], _strlen(commands[0]));
+	write(STDOUT_FILENO, ": not found\n", 12);
+}
+
+/**
+ * handle - A function to handle Ctr + C
+ * @signals: The signal to handle
+ * Return: Nothing
+ */
+void handle(int signals)
+{
+	(void)signals;
+	write(STDOUT_FILENO, "\n$ ", 3);
 }
