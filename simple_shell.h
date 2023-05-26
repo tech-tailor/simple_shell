@@ -51,11 +51,11 @@ void free_exit(char **command);
 /*============  Auxiliar_Functions    ==============*/
 /*==================================================*/
 
-int _strcmp(const char *s1, const char *s2);
+int _strcmp(char *s1, char *s2);
 unsigned int _strlen(char *s);
-char *_strcpy(char *destination, const char *source);
+char *_strcpy(char *destination, char *source);
 int _atoi(char *s);
-char *_strcat(char *dest, const char *src);
+char *_strcat(char *dest, char *src);
 
 /*============ END      ==============*/
 
