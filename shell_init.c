@@ -53,7 +53,7 @@ int main(int ac, char **av, char **envp)
 void prompt(void)
 {
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "\n$ ", 3);
+		write(STDOUT_FILENO, "$ ", 2);
 }
 
 
