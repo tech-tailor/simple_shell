@@ -26,6 +26,12 @@ char **_strtok(char *buffer, const char *s)
 	}
 
 	token = strtok(buffer, s);
+	if (token == NULL)
+	{
+		free(buffer);
+		free_par(cmds);
+		exit(0);
+	}
 	while (token != NULL)
 	{
 		cmds[i] = malloc(_strlen(token) + 1);

@@ -29,6 +29,11 @@ int main(int ac, char **av, char **envpp)
 		{
 			buffer[_strlen(buffer) - 1] = '\0';
 			cmd = _strtok(buffer, " \0");
+			if (cmd == NULL)
+			{
+				free(buffer);
+				continue;
+			}
 			free(buffer);
 			check(cmd, av, envpp, &circl);
 		}
