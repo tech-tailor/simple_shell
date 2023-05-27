@@ -92,7 +92,7 @@ void _EOF(char *buffer)
  */
 void shell_exit(char **cmd)
 {
-	int sta_tus = 0;
+	int sta_tus = 2;
 
 	if (cmd[1] == NULL)
 	{
