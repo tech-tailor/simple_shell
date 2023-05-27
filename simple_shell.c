@@ -15,7 +15,6 @@ ssize_t chars_read = 0;
 int circl = 0;
 (void)ac;
 
-<<<<<<< HEAD
 while (1)
 {
 circl++;
@@ -39,30 +38,8 @@ _cd(cmd[1]);
 free_par(cmd);
 }
 else
-{
 create_fork(cmd, av[0], envpp, circl);
 }
-}
-=======
-	while (1)
-	{
-		circl++;
-		display_prompt();
-		signal(SIGINT, handle);
-		chars_read = getline(&buffer, &buf_size, stdin);
-		if (chars_read == EOF)
-			_EOF(buffer);
-		else if (*buffer == '\n')
-			free(buffer);
-		else
-		{
-			buffer[_strlen(buffer) - 1] = '\0';
-			cmd = _strtok(buffer, " \0");
-			free(buffer);
-			check(cmd, av, envpp, &circl);
-		}
->>>>>>> c44bddd73a1b0631626bea21fc72ef0332d1e4b5
-
 fflush(stdin);
 buffer = NULL, buf_size = 0;
 }
@@ -70,7 +47,6 @@ if (chars_read == -1)
 return (EXIT_FAILURE);
 return (EXIT_SUCCESS);
 }
-
 
 /**
 * display_prompt - display_prompt function
@@ -122,11 +98,8 @@ exit(EXIT_SUCCESS);
 */
 void shell_exit(char **cmd)
 {
-<<<<<<< HEAD
 int status;
-=======
-	int sta_tus = 2;
->>>>>>> c44bddd73a1b0631626bea21fc72ef0332d1e4b5
+
 
 if (cmd[1] == NULL)
 {
