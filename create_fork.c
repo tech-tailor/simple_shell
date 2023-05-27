@@ -46,7 +46,13 @@ int _cd(char *path)
 	char curr_dir[1024];
 
 	if (path == NULL)
-		path = getenv("HOME");
+	{
+		if (getenv("HOME") == NULL)
+			path = getcwd(curr_dir, 1024);
+		else
+			path = getenv("HOME");
+	}
+
 	if (_strcmp(path, "-") != 0)
 		path = getenv("OLDPWD");
 
