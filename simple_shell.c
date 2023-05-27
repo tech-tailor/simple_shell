@@ -1,24 +1,24 @@
 #include "simple_shell.h"
 
 /**
- * main - A function for shell.
- * @ac: arguments count.
- * @av: arguments vector
- * @env: enviromental variables pointer
- * Return: Always 0.
+ * main - A function fo shell
+ * @ac: arguments cout
+ * @av: arguments vecr
+ * @envpp: envpiromenl variables pointer
+ * Return: Always0
  */
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **envpp)
 {
-	char *buffer = NULL, **command = NULL;
+	char *buffer = NULL, **cmd = NULL;
 	size_t buf_size = 0;
 	ssize_t chars_read = 0;
-	int cicles = 0;
+	int circl = 0;
 	(void)ac;
 
 	while (1)
 	{
-		cicles++;
-		prompt();
+		circl++;
+		display_prompt();
 		signal(SIGINT, handle);
 		chars_read = getline(&buffer, &buf_size, stdin);
 		if (chars_read == EOF)
@@ -28,15 +28,18 @@ int main(int ac, char **av, char **envp)
 		else
 		{
 			buffer[_strlen(buffer) - 1] = '\0';
-			command = tokening(buffer, " \0");
+			cmd = _strtok(buffer, " \0");
 			free(buffer);
-			if (_strcmp(command[0], "exit") != 0)
-				shell_exit(command);
-			else if (_strcmp(command[0], "cd") != 0)
-				change_dir(command[1]);
+			if (_strcmp(cmd[0], "exit") != 0)
+				shell_exit(cmd);
+			else if (_strcmp(cmd[0], "cd") != 0)
+				_cd(cmd[1]);
 			else
-				create_child(command, av[0], envp, cicles);
+			{
+				create_fork(cmd, av[0], envpp, circl);
+			}
 		}
+
 		fflush(stdin);
 		buffer = NULL, buf_size = 0;
 	}
@@ -47,10 +50,10 @@ int main(int ac, char **av, char **envp)
 
 
 /**
- * prompt - prompt function
+ * display_prompt - display_prompt function
  * Return: void
  */
-void prompt(void)
+void display_prompt(void)
 {
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
@@ -58,8 +61,8 @@ void prompt(void)
 
 
 /**
- * handle - to handle Ctr + C signal.
- * @signals: The signal to handle.
+ * handle - to handle Ct + C signal
+ * @signals: The sgnal to hadle
  * Return: Nothing.
  */
 void handle(int signals)
@@ -71,8 +74,8 @@ void handle(int signals)
 
 /**
  * _EOF - A function that chaecks if buffer is EOF
- * @buffer: The pointer to the input string.
- * Return: Nothing
+ * @buffer: Theonter to the input string
+ * Return: Nothin
  */
 void _EOF(char *buffer)
 {
@@ -90,21 +93,20 @@ void _EOF(char *buffer)
 
 
 /**
- * shell_exit - A function that exits the shell.
- * @command: The pointer to tokenized command.
- * Return: Nothing.
+ * shell_exit - Afnction that exits the shell
+ * @cmd: The pointer to tkenized cmd
+ * Return: Nothig
  */
-void shell_exit(char **command)
+void shell_exit(char **cmd)
 {
 	int sta_tus = 0;
 
-	if (command[1] == NULL)
+	if (cmd[1] == NULL)
 	{
-		free_dp(command);
+		free_par(cmd);
 		exit(EXIT_SUCCESS);
 	}
-
-	sta_tus = _atoi(command[1]);
-	free_dp(command);
+	sta_tus = _atoi(cmd[1]);
+	free_par(cmd);
 	exit(sta_tus);
 }

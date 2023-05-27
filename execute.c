@@ -1,66 +1,67 @@
 #include "simple_shell.h"
 
 /**
- * execute - A function that executes a command.
- * @command: The pointer to tokienized command
- * @name: The name of the shell.
- * @env: The pointer to the enviromental variables.
- * @cicles: Number of executed cicles.
- * Return: Nothing.
+ * execute - A function that xecutes a cm
+ * @cmd: The pointer to tokiezed cmd
+ * @name: The name of the shell
+ * @envp: The pointer to the epiromental variables.
+ * @circl: Number of executed rcl
+ * Return: Nothing
  */
-void execute(char **command, char *name, char **env, int cicles)
+void execute(char **cmd, char *name, char **envp, int circl)
 {
 	char **pathways = NULL, *full_path = NULL;
 	struct stat st;
 	unsigned int i = 0;
 
-	if (_strcmp(command[0], "env") != 0)
-		print_env(env);
-	if (stat(command[0], &st) == 0)
+	if (_strcmp(cmd[0], "envp") != 0)
+		print_envp(envp);
+
+	if (stat(cmd[0], &st) == 0)
 	{
-		if (execve(command[0], command, env) < 0)
+		if (execve(cmd[0], cmd, envp) < 0)
 		{
 			perror(name);
-			free_exit(command);
+			free_exit(cmd);
 		}
 	}
 	else
 	{
-		pathways = _getPATH(env);
+		pathways = _getPATH(envp);
 		while (pathways[i])
 		{
-			full_path = _strcat(pathways[i], command[0]);
+			full_path = _strcat(pathways[i], cmd[0]);
 			i++;
 			if (stat(full_path, &st) == 0)
 			{
-				if (execve(full_path, command, env) < 0)
+				if (execve(full_path, cmd, envp) < 0)
 				{
 					perror(name);
-					free_dp(pathways);
-					free_exit(command);
+					free_par(pathways);
+					free_exit(cmd);
 				}
 				return;
 			}
 		}
-		msgerror(name, cicles, command);
-		free_dp(pathways);
+		print_error(name, circl, cmd);
+		free_par(pathways);
 	}
 }
 
 
 /**
- * print_env - A function that prints all enviromental variables.
- * @env: The pointer to enviromental variables.
- * Return: Nothing.
+ * print_envp - A function that printsall envpiromental variab
+ * @envp: The pointer topiromentalariables
+ * Return: Nothing
  */
-void print_env(char **env)
+void print_envp(char **envp)
 {
 	size_t i = 0, len = 0;
 
-	while (env[i])
+	while (envp[i])
 	{
-		len = _strlen(env[i]);
-		write(STDOUT_FILENO, env[i], len);
+		len = _strlen(envp[i]);
+		write(STDOUT_FILENO, envp[i], len);
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
@@ -68,48 +69,47 @@ void print_env(char **env)
 
 
 /**
- * _getPATH - A function to gets the full value from.
- * enviromental variable PATH.
- * @env: The pointer to enviromental variables.
- * Return: All tokenized pathways for commands.
+ * _getPATH - A function to gets the full value fro
+ * @envp: The pointer to envpiromental variabls
+ * Return: All tokeized pathways for cmds
  */
-char **_getPATH(char **env)
+char **_getPATH(char **envp)
 {
 	char *pathvalue = NULL, **pathways = NULL;
 	unsigned int i = 0;
 
-	pathvalue = strtok(env[i], "=");
-	while (env[i])
+	pathvalue = strtok(envp[i], "=");
+	while (envp[i])
 	{
 		if (_strcmp(pathvalue, "PATH"))
 		{
 			pathvalue = strtok(NULL, "\n");
-			pathways = tokening(pathvalue, ":");
+			pathways = _strtok(pathvalue, ":");
 			return (pathways);
 		}
 		i++;
-		pathvalue = strtok(env[i], "=");
+		pathvalue = strtok(envp[i], "=");
 	}
 	return (NULL);
 }
 
 
 /**
- * msgerror - A function that prints message not found.
- * @name: The name of the shell.
- * @cicles: Number of cicles.
- * @command: The pointer to tokenized command.
+ * print_error - A function that prints essage not found
+ * @name: The name of the shell
+ * @circl: Number of circl
+ * @cmd: The pointer to tkenized cmd.
  * Return: Nothing.
  */
-void msgerror(char *name, int cicles, char **command)
+void print_error(char *name, int circl, char **cmd)
 {
 	char c;
 
-	c = cicles + '0';
+	c = circl + '0';
 	write(STDOUT_FILENO, name, _strlen(name));
 	write(STDOUT_FILENO, ": ", 2);
 	write(STDOUT_FILENO, &c, 1);
 	write(STDOUT_FILENO, ": ", 2);
-	write(STDOUT_FILENO, command[0], _strlen(command[0]));
+	write(STDOUT_FILENO, cmd[0], _strlen(cmd[0]));
 	write(STDOUT_FILENO, ": not found\n", 12);
 }
