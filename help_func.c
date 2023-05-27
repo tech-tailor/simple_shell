@@ -62,8 +62,6 @@ void check(char **cmd, char **av, char **envpp, int *circl)
 
 	while (cmd[ac] != NULL)
 		ac++;
-	printf(" the ac is %d \n", ac);
-
 	if (_strcmp(cmd[0], "exit") != 0)
 		shell_exit(cmd);
 	else if (_strcmp(cmd[0], "cd") != 0)
