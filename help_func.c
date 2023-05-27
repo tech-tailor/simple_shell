@@ -62,6 +62,7 @@ void check(char **cmd, char **av, char **envpp, int *circl)
 
 	while (cmd[ac] != NULL)
 		ac++;
+	printf(" the ac is %d \n", ac);
 
 	if (_strcmp(cmd[0], "exit") != 0)
 		shell_exit(cmd);
@@ -72,10 +73,10 @@ void check(char **cmd, char **av, char **envpp, int *circl)
 	}
 	else if ((_strcmp(cmd[0], "setenv") != 0) && (ac > 2))
 	{
-		shell_setenv(cmd[1], cmd[3]);
+		shell_setenv(cmd[1], cmd[2]);
 		free_par(cmd);
 	}
-	else if (_strcmp(cmd[0], "unsetenv") != 0)
+	else if ((_strcmp(cmd[0], "unsetenv") != 0) && (ac > 1))
 	{
 		shell_unsetenv(cmd[1]);
 		free_par(cmd);
