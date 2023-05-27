@@ -56,7 +56,10 @@ int _cd(char *path)
 	if (_strcmp(path, "-") != 0)
 	{
 		if (getenv("OLDPWD") == NULL)
-			path = getcwd(curr_dir, 1024);
+		{
+			getcwd(curr_dir, 1024);
+			path = _strcat(curr_dir, curr_dir);
+		}
 		else
 			path = getenv("OLDPWD");
 	}

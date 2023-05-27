@@ -27,5 +27,8 @@ int _strcmp(char *s1, char *s2);
 unsigned int _strlen(char *s);
 int _atoi(char *s);
 char *_strcat(char *dest, char *src);
+int shell_setenv(const char *variable, const char *value);
+int shell_unsetenv(const char *variable);
+void check(char **cmd, char **av, char **envpp, int* circl);
 
 #endif
