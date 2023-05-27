@@ -44,7 +44,6 @@ free_par(cmd);
 
 int _cd(const char *path)
 {
-<<<<<<< HEAD
 char *buf;
 size_t size = 1024;
 
@@ -108,17 +107,4 @@ write(STDERR_FILENO, "unsetenv: Failed to unset environment variable\n", 47);
 return (0);
 }
 return (1);
-=======
-	char *buf = NULL;
-	size_t size = 1024;
-
-	if (path == NULL)
-		path = getcwd(buf, size);
-	if (chdir(path) != 0)
-	{
-		perror(path);
-		return (98);
-	}
-	return (1);
->>>>>>> 3305009f026610746eb81ee7b0e0b71448798d99
 }
