@@ -42,17 +42,26 @@ void create_fork(char **cmd, char *name, char **envp, int circl)
   * @path: The new current working director
   * Return: 0 on succes
   */
-int _cd(const char *path)
+int _cd(char *path)
 {
-	char *buf = NULL;
-	size_t size = 1024;
+	char curr_dir[1024];
 
 	if (path == NULL)
-		path = getcwd(buf, size);
+		path = getenv("HOME");
+	if (_strcmp(path, "-") != 0)
+		path = getenv("OLDPWD");
+
+	if (getcwd(curr_dir, 1024) == NULL)
+	{
+		perror(path);
+		return (98);
+	}
 	if (chdir(path) != 0)
 	{
 		perror(path);
 		return (98);
 	}
+	setenv("PWD", path, 1);
+	setenv("OLDPWD", curr_dir, 1);
 	return (1);
 }

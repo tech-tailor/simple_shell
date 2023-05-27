@@ -12,7 +12,7 @@ int main(int ac, char **av, char **envp);
 void display_prompt(void);
 void handle(int signals);
 void _EOF(char *buffer);
-int _cd(const char *path);
+int _cd(char *path);
 void shell_exit(char **cmd);
 void execute(char **cmd, char *name, char **envp, int circl);
 void print_envp(char **envp);
