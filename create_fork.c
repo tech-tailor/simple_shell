@@ -49,7 +49,7 @@ int _cd(const char *path)
 
 	if (path == NULL)
 		path = getcwd(buf, size);
-	if (chdir(path) == -1)
+	if (chdir(path) != 0)
 	{
 		perror(path);
 		return (98);

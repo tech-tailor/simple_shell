@@ -33,7 +33,10 @@ int main(int ac, char **av, char **envpp)
 			if (_strcmp(cmd[0], "exit") != 0)
 				shell_exit(cmd);
 			else if (_strcmp(cmd[0], "cd") != 0)
+			{
 				_cd(cmd[1]);
+				free_par(cmd);
+			}
 			else
 			{
 				create_fork(cmd, av[0], envpp, circl);
