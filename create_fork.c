@@ -37,43 +37,46 @@ free_par(cmd);
 }
 
 /**
- *_cd - changes working directo
- * @path: The new current working director
- * Return: 0 on succes
- */
-
-int _cd(const char *path)
+  * _cd - Afunction that changes working directo
+  * @path: The new current working director
+  * Return: 0 on succes
+  */
+int _cd(char *path)
 {
-char *buf;
-size_t size = 1024;
+	char curr_dir[1024];
 
-buf = malloc(size);
-if (buf == NULL)
-{
-perror("malloc");
-return (0);
-}
+	if (path == NULL)
+	{
+		if (getenv("HOME") == NULL)
+			path = getcwd(curr_dir, 1024);
+		else
+			path = getenv("HOME");
+	}
 
-if (path == NULL)
-{
-if (getcwd(buf, size) == NULL)
-{
-perror("getcwd");
-free(buf);
-return (0);
-}
-path = buf;
-}
+	if (_strcmp(path, "-") != 0)
+	{
+		if (getenv("OLDPWD") == NULL)
+		{
+			getcwd(curr_dir, 1024);
+			path = _strcat(curr_dir, curr_dir);
+		}
+		else
+			path = getenv("OLDPWD");
+	}
 
-if (chdir(path) == -1)
-{
-perror("chdir");
-free(buf);
-return (98);
-}
-
-free(buf);
-return (1);
+	if (getcwd(curr_dir, 1024) == NULL)
+	{
+		perror(path);
+		return (98);
+	}
+	if (chdir(path) != 0)
+	{
+		perror(path);
+		return (98);
+	}
+	setenv("PWD", path, 1);
+	setenv("OLDPWD", curr_dir, 1);
+	return (1);
 }
 
 /**
