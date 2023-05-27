@@ -71,6 +71,11 @@ void check(char **cmd, char **av, char **envpp, int *circl)
 		_cd(cmd[1]);
 		free_par(cmd);
 	}
+	else if (_strcmp(cmd[0], "env") != 0)
+	{
+		print_envp(envpp);
+		free_par(cmd);
+	}
 	else if ((_strcmp(cmd[0], "setenv") != 0) && (ac > 2))
 	{
 		shell_setenv(cmd[1], cmd[2]);
