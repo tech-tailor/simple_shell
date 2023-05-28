@@ -45,6 +45,5 @@ char **_strtok(char *buffer, const char *s)
 		i++;
 	}
 	cmds[i] = NULL;
-	free(buffer);
 	return (cmds);
 }
