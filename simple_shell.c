@@ -29,11 +29,6 @@ int circl = 0;
 		{
 			buffer[_strlen(buffer) - 1] = '\0';
 			cmd = _strtok(buffer, " \0");
-			if (cmd == NULL)
-			{
-				buffer = NULL, buf_size = 0;
-				continue;
-			}
 			free(buffer);
 			check(cmd, av, envpp, &circl);
 		}

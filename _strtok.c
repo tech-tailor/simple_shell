@@ -16,11 +16,6 @@ char **_strtok(char *buffer, const char *s)
 		return (NULL);
 
 	bufsize = _strlen(buffer);
-	if (strtok(buffer, s) == NULL)
-	{
-		free(buffer);
-		return (NULL);
-	}
 	cmds = malloc((bufsize + 1) * sizeof(char *));
 	if (cmds == NULL)
 	{
