@@ -31,7 +31,7 @@ int circl = 0;
 			cmd = _strtok(buffer, " \0");
 			if (cmd == NULL)
 			{
-				free(buffer);
+				buffer = NULL, buf_size = 0;
 				continue;
 			}
 			free(buffer);

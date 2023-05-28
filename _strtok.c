@@ -16,22 +16,21 @@ char **_strtok(char *buffer, const char *s)
 		return (NULL);
 
 	bufsize = _strlen(buffer);
+	if (strtok(buffer, s) == NULL)
+	{
+		free(buffer);
+		return (NULL);
+	}
 	cmds = malloc((bufsize + 1) * sizeof(char *));
 	if (cmds == NULL)
 	{
 		perror("Unable to allocate buffer");
 		free(buffer);
-		free_par(cmds);
+		free(cmds);
 		exit(EXIT_FAILURE);
 	}
 
 	token = strtok(buffer, s);
-	if (token == NULL)
-	{
-		free(buffer);
-		free_par(cmds);
-		exit(0);
-	}
 	while (token != NULL)
 	{
 		cmds[i] = malloc(_strlen(token) + 1);
@@ -46,5 +45,6 @@ char **_strtok(char *buffer, const char *s)
 		i++;
 	}
 	cmds[i] = NULL;
+	free(buffer);
 	return (cmds);
 }
